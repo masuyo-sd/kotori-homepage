@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>相談支援センターことり</title>
+  <style>
+:root{
+  --mint:#78cabb;
+  --mint-dark:#4fa89a;
+  --sky:#bfeefa;
+  --leaf:#9bd48f;
+  --cream:#fbfff8;
+  --text:#5d5a54;
+  --sub:#7b766f;
+  --line:rgba(107,190,174,.25);
+  --card:rgba(255,255,255,.86);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  font-family:"Hiragino Maru Gothic ProN","Yu Gothic","Noto Sans JP",system-ui,sans-serif;
+  line-height:1.85;
+  background:
+    radial-gradient(circle at 85px 160px, rgba(184,235,247,.75), transparent 210px),
+    radial-gradient(circle at 92% 4%, rgba(169,230,196,.72), transparent 260px),
+    linear-gradient(180deg,#effcff 0%,#f9fff4 52%,#ffffff 100%);
+}
+a{color:inherit}
+.site-header{
+  position:sticky;top:0;z-index:50;
+  padding:10px 14px;
+  background:rgba(248,255,253,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  max-width:1080px;margin:auto;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.brand{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  font-weight:800;letter-spacing:.03em;
+}
+.brand img{
+  width:46px;height:46px;border-radius:50%;object-fit:cover;
+  box-shadow:0 5px 18px rgba(86,155,143,.18);
+  background:white;
+}
+.brand span{font-size:clamp(1rem,4vw,1.25rem)}
+.menu-btn{
+  border:1px solid var(--line);
+  background:white;border-radius:999px;
+  width:46px;height:46px;
+  display:grid;place-items:center;
+  font-size:1.35rem;color:var(--mint-dark);
+}
+.nav{
+  display:none;
+  position:absolute;left:14px;right:14px;top:68px;
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:0 20px 50px rgba(88,158,146,.18);
+  padding:12px;
+}
+.nav a{
+  display:block;text-decoration:none;padding:13px 16px;
+  border-radius:16px;font-weight:700;color:var(--sub);
+}
+.nav a:active{background:#eefbf8}
+.nav.open{display:block}
+.hero{
+  max-width:1080px;margin:0 auto;
+  padding:34px 18px 48px;
+}
+.hero-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.72));
+  border:1px solid var(--line);
+  border-radius:34px;
+  box-shadow:0 24px 70px rgba(87,162,151,.14);
+  padding:26px 18px 28px;
+  overflow:hidden;
+  position:relative;
+}
+.hero-card:before{
+  content:"";position:absolute;right:-75px;top:-70px;
+  width:210px;height:210px;border-radius:50%;
+  background:rgba(190,238,250,.55);
+}
+.hero-logo{
+  position:relative;
+  display:block;width:min(78vw,280px);height:auto;margin:0 auto 10px;
+  border-radius:30px;background:white;
+  box-shadow:0 12px 34px rgba(93,154,143,.12);
+}
+.eyebrow{
+  position:relative;margin:12px 0 8px;
+  color:var(--mint-dark);font-weight:900;letter-spacing:.16em;font-size:.82rem;
+}
+h1{
+  position:relative;
+  margin:0;
+  font-size:clamp(2rem,8.6vw,4rem);
+  line-height:1.35;
+  color:#505a54;
+  letter-spacing:.04em;
+}
+.lead{
+  position:relative;
+  margin:18px 0 24px;
+  font-size:1.04rem;color:#69665f;
+}
+.cta-row{display:grid;gap:12px;position:relative}
+.btn{
+  display:block;text-align:center;text-decoration:none;
+  padding:15px 18px;border-radius:999px;
+  font-weight:900;font-size:1.05rem;
+}
+.primary{background:var(--mint);color:white;box-shadow:0 10px 22px rgba(86,181,166,.28)}
+.secondary{background:white;color:var(--mint-dark);border:1px solid var(--mint)}
+.section{
+  max-width:1080px;margin:0 auto;padding:30px 18px;
+}
+.section-label{color:var(--mint-dark);font-weight:900;letter-spacing:.15em;font-size:.83rem}
+h2{
+  margin:4px 0 18px;
+  font-size:clamp(1.55rem,6vw,2.35rem);
+  line-height:1.45;color:#535d57;
+}
+.box,.service-card,.check,.step,.info{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:26px;
+  box-shadow:0 10px 36px rgba(90,155,145,.09);
+}
+.box{padding:22px}
+.check-list{display:grid;gap:12px}
+.check{padding:15px 16px;font-weight:800}
+.check:before{content:"✓";color:var(--mint-dark);font-weight:900;margin-right:8px}
+.services{display:grid;gap:14px}
+.service-card{padding:20px}
+.service-card h3{margin:0 0 8px;color:#52645d;font-size:1.2rem}
+.service-card p{margin:0;color:#6b6861}
+.flow{display:grid;gap:12px}
+.step{display:flex;gap:14px;align-items:center;padding:15px}
+.num{
+  flex:0 0 42px;width:42px;height:42px;border-radius:50%;
+  background:var(--mint);color:white;display:grid;place-items:center;
+  font-weight:900;
+}
+.info{padding:20px}
+.info dl{margin:0}
+.info div{padding:8px 0;border-bottom:1px dashed rgba(111,170,160,.28)}
+.info div:last-child{border-bottom:0}
+.info dt{font-weight:900;color:#59635d}
+.info dd{margin:2px 0 0;color:#6d6962}
+.contact{
+  margin:22px 18px 44px;
+  padding:28px 18px;
+  border-radius:32px;
+  text-align:center;
+  color:white;
+  background:linear-gradient(135deg,var(--mint),#9edfee);
+  box-shadow:0 18px 46px rgba(83,165,153,.25);
+}
+.contact h2{color:white;margin-bottom:8px}
+.footer{text-align:center;padding:30px 16px;color:#777;font-size:.88rem}
+.fixed-tel{
+  position:fixed;left:14px;right:14px;bottom:14px;z-index:60;
+  display:block;text-align:center;text-decoration:none;
+  padding:13px 18px;border-radius:999px;
+  background:#62bbad;color:white;font-weight:900;
+  box-shadow:0 14px 34px rgba(58,142,130,.35);
+}
+.bottom-space{height:70px}
+@media(min-width:760px){
+  .menu-btn{display:none}
+  .nav{
+    display:flex;position:static;background:transparent;border:0;box-shadow:none;padding:0;
+    gap:4px;
+  }
+  .nav a{padding:8px 10px;font-size:.9rem}
+  .hero{padding-top:70px}
+  .hero-card{
+    display:grid;grid-template-columns:.95fr 1.05fr;align-items:center;
+    gap:36px;padding:44px;
+  }
+  .hero-logo{grid-column:2;grid-row:1 / span 4;width:min(34vw,360px)}
+  .cta-row{display:flex}
+  .check-list{grid-template-columns:repeat(2,1fr)}
+  .services{grid-template-columns:repeat(3,1fr)}
+  .flow{grid-template-columns:repeat(5,1fr)}
+  .step{display:block;text-align:center}
+  .num{margin:0 auto 10px}
+  .fixed-tel{display:none}
+  .bottom-space{display:none}
+}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#">
+        <img src="kotori_logo_icon.png" alt="相談支援センターことり ロゴ">
+        <span>相談支援センター ことり</span>
+      </a>
+      <button class="menu-btn" type="button" aria-label="メニューを開く" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button>
+      <nav class="nav">
+        <a href="#message">ごあいさつ</a>
+        <a href="#consultation">相談内容</a>
+        <a href="#service">サービス</a>
+        <a href="#flow">ご利用の流れ</a>
+        <a href="#contact">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <img class="hero-logo" src="kotori_logo_icon.png" alt="ことりのロゴ">
+        <div class="eyebrow">CONSULTATION SUPPORT</div>
+        <h1>一人ひとりに寄り添い、<br>安心のサポートを。</h1>
+        <p class="lead">困りごとや不安なことを、ひとりで抱えていませんか？<br>ことりは、あなたの声にやさしく耳を傾け、安心して暮らせる毎日を一緒に考えます。</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#contact">お問い合わせする</a>
+          <a class="btn secondary" href="#flow">ご利用の流れを見る</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="message" class="section">
+      <div class="section-label">MESSAGE</div>
+      <h2>はじめまして、ことりです</h2>
+      <div class="box">
+        相談支援センターことりは、障がいのある方やご家族が、地域で安心して暮らしていけるよう支援する相談支援事業所です。小さな不安や困りごとも、どうぞお気軽にご相談ください。一人ひとりの想いに寄り添い、その方らしい生活を一緒に考えていきます。
+      </div>
+    </section>
+
+    <section id="consultation" class="section">
+      <div class="section-label">CONSULTATION</div>
+      <h2>こんなご相談ができます</h2>
+      <div class="check-list">
+        <div class="check">福祉サービスを利用したい</div>
+        <div class="check">将来の生活に不安がある</div>
+        <div class="check">グループホームについて知りたい</div>
+        <div class="check">家族の負担を軽くしたい</div>
+        <div class="check">どこに相談すればよいかわからない</div>
+      </div>
+    </section>
+
+    <section id="service" class="section">
+      <div class="section-label">SERVICE</div>
+      <h2>サービス内容</h2>
+      <div class="services">
+        <div class="service-card"><h3>計画相談支援</h3><p>サービス等利用計画の作成や、必要な福祉サービスの調整を行います。</p></div>
+        <div class="service-card"><h3>モニタリング</h3><p>定期的に生活状況を確認し、必要に応じて支援内容を見直します。</p></div>
+        <div class="service-card"><h3>関係機関連携</h3><p>行政・事業所・医療機関などと連携し、安心できる支援体制を整えます。</p></div>
+      </div>
+    </section>
+
+    <section id="flow" class="section">
+      <div class="section-label">FLOW</div>
+      <h2>ご利用の流れ</h2>
+      <div class="flow">
+        <div class="step"><div class="num">1</div>お問い合わせ</div>
+        <div class="step"><div class="num">2</div>面談・聞き取り</div>
+        <div class="step"><div class="num">3</div>計画作成</div>
+        <div class="step"><div class="num">4</div>サービス利用</div>
+        <div class="step"><div class="num">5</div>定期的な見直し</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">INFORMATION</div>
+      <h2>事業所情報</h2>
+      <div class="info">
+        <dl>
+          <div><dt>事業所名</dt><dd>相談支援センターことり</dd></div>
+          <div><dt>住所</dt><dd>〒000-0000　〇〇県〇〇市〇〇町〇〇</dd></div>
+          <div><dt>電話番号</dt><dd>000-0000-0000</dd></div>
+          <div><dt>受付時間</dt><dd>平日 9:00〜17:00</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>お気軽にご相談ください</h2>
+      <p>お電話またはメールフォームよりお問い合わせください。</p>
+      <a class="btn secondary" href="tel:0000000000">電話する</a>
+    </section>
+  </main>
+
+  <a class="fixed-tel" href="tel:0000000000">電話で相談する</a>
+  <div class="bottom-space"></div>
+  <footer class="footer">© 相談支援センターことり</footer>
+
+  <script>
+    document.querySelectorAll('.nav a').forEach(function(link){
+      link.addEventListener('click', function(){
+        document.querySelector('.nav').classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>
